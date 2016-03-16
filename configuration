@@ -1,20 +1,13 @@
-This is a configuration file. 
-Name of sensors and decimal adresses of USB Sticks should come between lines "sensors:" and "end.".
-Each sensor entity needs a separate line, never use white space symbol in the cofiguration section file " ". 
-Each line must be ended only with enter ("new line symbol").
-Format is the following: <name><tabulator><decimal_stick_address><enter>
-System can handle 
+# This is a configuration file. 
+# Sensor entities (names of sensors and decimal adresses of USB Sticks) should come between lines "sensors:" and "end.".
+# Each sensor entity needs a separate line, never use white space symbol in the cofiguration section file " ". 
+# Each line must be ended only with enter ("new line symbol").
+# Format is the following: <name><tabulator><decimal_stick_address><enter>
+# System can handle up to 16 sensors.
 
 
 sensors:
 outer	6873
 left	6181
 right	6367
-
-
-fake	12345678
-fake	12345678
-fake	12345678
-fake	12345678
-fake	12345678
 end.

@@ -1,10 +1,6 @@
 //
-// i2c_shtc1_shtw1.c - Sensirion SHTW1 and SHTC1 sensor Temperature&Humidity read out with EK-H5 iowarrior device
-// Draft version - not optimised, prints Temperature, Relative Humidity and Dew Point values to the terminal
-//		 - creates on-line plots of these values with gnuplot, writes result file in 'records' dictionary
-//		 - on INTSIG (ctrl + c) prints summary graphs with tuned X and Y axis
 // prepared by: Tomasz Gadek CERN 2016 <tomasz.gadek@cern.ch>
-// to compile: use prepared Makefile command 'make' or 'gcc i2c_shtc1_shtw1.c -o i2c_shtc1_shtw1 -l iowkit -lm -lrt'
+// to compile: use prepared Makefile command 'make' or 'gcc testsystem.c -o testsystem -l iowkit -lm -lrt'
 // 
 // Test conditions:
 // Scientific Linux CERN 6, kernel 2.6.32-573.12.1.el6.x86_64
@@ -388,7 +384,7 @@ int InitializeSticksAndSensors(IOWKIT_HANDLE handles_table[], unsigned long numb
 	int sensor_id = -1;
 	uint8_t sensors_iterator = 0;
 
-	printf("There could be maximum of %u io-warrior devices connected to this PC.\n", IOWKIT_MAX_DEVICES);
+	printf("\nThere could be maximum of %u io-warrior devices connected to this PC.\n", IOWKIT_MAX_DEVICES);
 	printf("There are %u io-warrior USB Stick devices connected to this PC.\n", number_of_devices);	
 	
 	while (number_of_devices)
@@ -536,7 +532,7 @@ int PrintVirtualSensors(SHTW1_SENSOR sensors_table[], uint8_t number_of_sensors)
 	while (number_of_sensors)
 	{
 		number_of_sensors--;
-		printf("--------------------\n");
+		printf("-----------------------------------------------\n");
 		printf("Name: %s\n", sensors_table[number_of_sensors].name);
 		printf("Stick S/N: %i\n", sensors_table[number_of_sensors].stick_serial_number);
 		printf("T: %.2f\n", sensors_table[number_of_sensors].temperature);
@@ -544,7 +540,7 @@ int PrintVirtualSensors(SHTW1_SENSOR sensors_table[], uint8_t number_of_sensors)
 		printf("DP: %.2f\n", sensors_table[number_of_sensors].dew_point);
 		printf("Handle: %u\n", sensors_table[number_of_sensors].usb_stick_handle);
 		printf("Info: %s\n", sensors_table[number_of_sensors].info);
-		printf("--------------------\n");
+		printf("-----------------------------------------------\n");
 	}
 }
 
@@ -630,6 +626,11 @@ int LoadConfiguration(SHTW1_SENSOR table_of_sensors[], uint8_t * number_of_senso
 					}				
 					table_of_sensors[sensors_iterator] = new_sensor;
 					sensors_iterator++;
+					if (sensors_iterator >= IOWKIT_MAX_DEVICES)
+					{
+						printf("ERROR: Corrupted configuration file:\n\t too many sensor entities, system can hold only: %u\n", IOWKIT_MAX_DEVICES);
+						break;
+					}
 				}
 
 				else
