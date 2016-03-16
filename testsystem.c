@@ -707,7 +707,7 @@ int main(int argc, char* argv[])
 		
 		PrintSensorsMeasurements(&table_of_sensors[0], number_of_sensors);		
 		
-		while(infinite_loop_control)
+		/*while(infinite_loop_control)
 		{
 		
 			if (!UpdateSensorsMeasurements(&table_of_sensors[0], number_of_sensors))
@@ -738,7 +738,7 @@ int main(int argc, char* argv[])
 					return -1;
 				}
 			}
-		}
+		}*/
 	
 		fclose(result_file);			
 
@@ -746,9 +746,9 @@ int main(int argc, char* argv[])
 
 		//PrintResultPlots(tm);
 
-		printf("\n(to terminate the program press 'ENTER')\n");
+		//printf("\n(to terminate the program press 'ENTER')\n");
 
-		getchar();
+		//getchar();
 		
 	}
 	else 	printf("No device found!");
